@@ -128,7 +128,7 @@
 
           <textarea id="c-notes" placeholder="ملاحظات الحساب..." rows="1" class="bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-sm text-slate-100 focus:outline-none focus:border-indigo-500 resize-none md:col-span-2"></textarea>
         </div>
-        <button onclick="addConsoleFromTab()" class="bg-indigo-600 hover:bg-indigo-500 text-white px-5 py-2.5 rounded-xl text-sm font-medium">إضافة الحساب</button>
+        <button onclick="addConsoleFromTab()" class="bg-indigo-600 hover:bg-indigo-500 text-white px-5 py-2.5 rounded-xl text-sm font-medium cursor-pointer">إضافة الحساب</button>
       </div>
 
       <div class="bg-slate-900 rounded-2xl border border-slate-800 shadow-xl overflow-x-auto">
@@ -160,7 +160,7 @@
           </select>
           <textarea id="new-client-notes" placeholder="ملاحظات حول العميل..." rows="1" class="bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-sm text-slate-100 focus:outline-none focus:border-indigo-500 resize-none"></textarea>
         </div>
-        <button onclick="addClientFromTab()" class="bg-indigo-600 hover:bg-indigo-500 text-white px-5 py-2.5 rounded-xl text-sm font-medium">إضافة العميل</button>
+        <button onclick="addClientFromTab()" class="bg-indigo-600 hover:bg-indigo-500 text-white px-5 py-2.5 rounded-xl text-sm font-medium cursor-pointer">إضافة العميل</button>
       </div>
 
       <div class="bg-slate-900 rounded-2xl border border-slate-800 shadow-xl overflow-x-auto">
@@ -230,7 +230,7 @@
     <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 w-full max-w-lg space-y-4 shadow-2xl">
       <div class="flex justify-between items-center border-b border-slate-800 pb-3">
         <h3 class="font-bold text-lg text-slate-100">إضافة تطبيق وإيجار جديد</h3>
-        <button type="button" id="close-modal-btn" class="text-slate-400 hover:text-white text-2xl font-bold">&times;</button>
+        <button type="button" id="close-modal-btn" class="text-slate-400 hover:text-white text-2xl font-bold cursor-pointer">&times;</button>
       </div>
 
       <form id="app-form" class="space-y-4">
@@ -284,8 +284,8 @@
         <div><label class="block text-xs text-slate-400 mb-1">تاريخ الاستحقاق القادم</label><input type="date" id="next_due_date" required class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-sm text-slate-100 focus:outline-none focus:border-indigo-500"></div>
 
         <div class="flex justify-end gap-2 pt-3 border-t border-slate-800">
-          <button type="button" id="cancel-modal-btn" class="px-4 py-2 bg-slate-800 text-slate-300 rounded-xl text-sm hover:bg-slate-700">إلغاء</button>
-          <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-sm font-medium hover:bg-indigo-500">حفظ البيانات</button>
+          <button type="button" id="cancel-modal-btn" class="px-4 py-2 bg-slate-800 text-slate-300 rounded-xl text-sm hover:bg-slate-700 cursor-pointer">إلغاء</button>
+          <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-sm font-medium hover:bg-indigo-500 cursor-pointer">حفظ البيانات</button>
         </div>
       </form>
     </div>
@@ -295,7 +295,7 @@
     <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 w-full max-w-lg space-y-4 shadow-2xl">
       <div class="flex justify-between items-center border-b border-slate-800 pb-3">
         <h3 class="font-bold text-lg text-slate-100">تعديل بيانات التطبيق</h3>
-        <button type="button" onclick="closeEditAppModal()" class="text-slate-400 hover:text-white text-2xl font-bold">&times;</button>
+        <button type="button" onclick="closeEditAppModal()" class="text-slate-400 hover:text-white text-2xl font-bold cursor-pointer">&times;</button>
       </div>
       <input type="hidden" id="edit-app-id">
       <input type="hidden" id="edit-app-original-name">
@@ -323,8 +323,8 @@
         <div><label class="block text-xs text-slate-400 mb-1">تاريخ الاستحقاق</label><input type="date" id="edit-app-date" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-sm text-slate-100"></div>
       </div>
       <div class="flex justify-end gap-2 pt-3 border-t border-slate-800">
-        <button type="button" onclick="closeEditAppModal()" class="px-4 py-2 bg-slate-800 text-slate-300 rounded-xl text-sm">إلغاء</button>
-        <button type="button" onclick="saveAppEdit()" class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-sm font-medium">حفظ التغييرات</button>
+        <button type="button" onclick="closeEditAppModal()" class="px-4 py-2 bg-slate-800 text-slate-300 rounded-xl text-sm cursor-pointer">إلغاء</button>
+        <button type="button" onclick="saveAppEdit()" class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-sm font-medium cursor-pointer">حفظ التغييرات</button>
       </div>
     </div>
   </div>
@@ -333,7 +333,7 @@
     <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 w-full max-w-lg space-y-4 shadow-2xl">
       <div class="flex justify-between items-center border-b border-slate-800 pb-3">
         <h3 class="font-bold text-lg text-slate-100">تعديل بيانات الحساب</h3>
-        <button type="button" onclick="closeEditConsoleModal()" class="text-slate-400 hover:text-white text-2xl font-bold">&times;</button>
+        <button type="button" onclick="closeEditConsoleModal()" class="text-slate-400 hover:text-white text-2xl font-bold cursor-pointer">&times;</button>
       </div>
       <input type="hidden" id="edit-c-id">
       <div class="space-y-3">
@@ -352,8 +352,8 @@
         <div><label class="block text-xs text-slate-400 mb-1">ملاحظات الحساب</label><textarea id="edit-c-notes" rows="2" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-sm text-slate-100 resize-none"></textarea></div>
       </div>
       <div class="flex justify-end gap-2 pt-3 border-t border-slate-800">
-        <button type="button" onclick="closeEditConsoleModal()" class="px-4 py-2 bg-slate-800 text-slate-300 rounded-xl text-sm">إلغاء</button>
-        <button type="button" onclick="saveConsoleEdit()" class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-sm font-medium">حفظ التغييرات</button>
+        <button type="button" onclick="closeEditConsoleModal()" class="px-4 py-2 bg-slate-800 text-slate-300 rounded-xl text-sm cursor-pointer">إلغاء</button>
+        <button type="button" onclick="saveConsoleEdit()" class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-sm font-medium cursor-pointer">حفظ التغييرات</button>
       </div>
     </div>
   </div>
@@ -362,7 +362,7 @@
     <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 w-full max-w-lg space-y-4 shadow-2xl">
       <div class="flex justify-between items-center border-b border-slate-800 pb-3">
         <h3 class="font-bold text-lg text-slate-100">تعديل بيانات العميل</h3>
-        <button type="button" onclick="closeEditClientModal()" class="text-slate-400 hover:text-white text-2xl font-bold">&times;</button>
+        <button type="button" onclick="closeEditClientModal()" class="text-slate-400 hover:text-white text-2xl font-bold cursor-pointer">&times;</button>
       </div>
       <input type="hidden" id="edit-cl-id">
       <div class="space-y-3">
@@ -377,8 +377,8 @@
         <div><label class="block text-xs text-slate-400 mb-1">ملاحظات</label><textarea id="edit-cl-notes" rows="3" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-sm text-slate-100"></textarea></div>
       </div>
       <div class="flex justify-end gap-2 pt-3 border-t border-slate-800">
-        <button type="button" onclick="closeEditClientModal()" class="px-4 py-2 bg-slate-800 text-slate-300 rounded-xl text-sm">إلغاء</button>
-        <button type="button" onclick="saveClientEdit()" class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-sm font-medium">حفظ التغييرات</button>
+        <button type="button" onclick="closeEditClientModal()" class="px-4 py-2 bg-slate-800 text-slate-300 rounded-xl text-sm cursor-pointer">إلغاء</button>
+        <button type="button" onclick="saveClientEdit()" class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-sm font-medium cursor-pointer">حفظ التغييرات</button>
       </div>
     </div>
   </div>
