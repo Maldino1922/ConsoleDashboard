@@ -30,8 +30,3 @@ body {
     direction: rtl;
 }
 
-/* إصلاح ارتفاع النوافذ المنبثقة للتجاوب مع كافة الشاشات */
-.modal-content, [role="dialog"] {
-    max-height: 90vh !important;
-    overflow-y: auto !important;
-}
