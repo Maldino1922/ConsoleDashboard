@@ -39,52 +39,49 @@ function toggleCustomNationality() {
 
 // 1. الصفحة الرئيسية
 async function fetchApps() {
-  const { data: apps } = await supabaseClient.from('apps').select('*').order('created_at', { ascending: false });
-  rawAppsList = apps || [];
+  if (!supabaseClient) return;
+
+  const { data: apps, error } = await supabaseClient.from('apps').select('*').order('created_at', { ascending: false });
+  
+  if (error) {
+    console.error("خطأ جلب البيانات:", error);
+    return;
+  }
+
   const tableBody = document.getElementById('apps-table-body');
   tableBody.innerHTML = '';
-  let totalRent = 0, pendingRent = 0;
 
-  const mainAppsList = rawAppsList.filter(app => (app.app_status || 'active') === 'active' || app.rent_status === 'paid');
+  let totalRent = 0;
+  let pendingRent = 0;
 
-  const sortedApps = [...mainAppsList].sort((a, b) => {
-    if (a.rent_status === 'paid' && b.rent_status !== 'paid') return 1;
-    if (a.rent_status !== 'paid' && b.rent_status === 'paid') return -1;
-    return new Date(a.next_due_date) - new Date(b.next_due_date);
+  apps.forEach(app => {
+    totalRent += Number(app.monthly_rent || 0);
+    if (app.rent_status !== 'paid') pendingRent += Number(app.monthly_rent || 0);
+
+    const row = document.createElement('tr');
+    row.className = 'hover:bg-slate-800/30 transition';
+    row.innerHTML = `
+      <td class="p-4 font-semibold text-slate-100">${app.app_name}</td>
+      <td class="p-4 text-slate-400">${app.console_account}</td>
+      <td class="p-4 text-slate-300">${app.client_name}</td>
+      <td class="p-4"><span class="px-2 py-1 bg-slate-800 text-indigo-400 rounded-lg text-xs">${app.partner_owner}</span></td>
+      <td class="p-4">$${app.setup_fee}</td>
+      <td class="p-4">$${app.monthly_rent} <span class="text-xs text-slate-500">/${getRentCycleText(app.rent_cycle)}</span></td>
+      <td class="p-4">${app.next_due_date || '-'}</td>
+      <td class="p-4">
+        <button onclick="togglePaymentStatus(${app.id}, '${app.rent_status}')" class="px-2.5 py-1 rounded-full text-xs font-medium cursor-pointer ${getStatusStyle(app.rent_status)}">
+          ${getStatusText(app.rent_status)}
+        </button>
+      </td>
+      <td class="p-4">
+        <button onclick="deleteApp(${app.id})" class="text-rose-400 hover:text-rose-300 text-xs cursor-pointer">حذف</button>
+      </td>
+    `;
+    tableBody.appendChild(row);
   });
-
-  sortedApps.forEach(app => {
-    if (app.rent_status !== 'paid') {
-      totalRent += Number(app.monthly_rent || 0);
-      pendingRent += Number(app.monthly_rent || 0);
-    }
-
-    const isPaid = app.rent_status === 'paid';
-
-    tableBody.innerHTML += `
-      <tr class="hover:bg-slate-800/30 transition ${isPaid ? 'opacity-60 bg-slate-900/30' : ''}">
-        <td class="p-4 font-semibold text-slate-100">${app.app_name}</td>
-        <td class="p-4 text-slate-400">${app.console_account}</td>
-        <td class="p-4 text-slate-300">${app.client_name}</td>
-        <td class="p-4"><span class="px-2 py-1 bg-slate-800 text-indigo-400 rounded-lg text-xs">${app.partner_owner || 'Maldino'}</span></td>
-        <td class="p-4">$${app.setup_fee}</td>
-        <td class="p-4">
-  $${app.monthly_rent || 0} 
-  <span class="text-xs text-slate-500">/${getCycleText(app.rent_cycle)}</span>
-</td>
-        <td class="p-4">${app.next_due_date || '-'}</td>
-        <td class="p-4">
-          <button onclick="handlePaymentClick(${app.id})" class="px-2.5 py-1 rounded-full text-xs font-medium cursor-pointer ${getStatusStyle(app.rent_status)}">
-            ${getStatusText(app.rent_status)}
-          </button>
-        </td>
-      </tr>`;
-  });
-
-  const uniqueActiveApps = new Set(mainAppsList.filter(a => a.rent_status !== 'paid').map(a => a.app_name));
 
   document.getElementById('stat-total-rent').textContent = `$${totalRent}`;
-  document.getElementById('stat-total-apps').textContent = uniqueActiveApps.size;
+  document.getElementById('stat-total-apps').textContent = apps.length;
   document.getElementById('stat-pending-rent').textContent = `$${pendingRent}`;
 }
 
