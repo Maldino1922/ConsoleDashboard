@@ -66,7 +66,10 @@ async function fetchApps() {
       <td class="p-4 text-slate-300">${app.client_name}</td>
       <td class="p-4"><span class="px-2 py-1 bg-slate-800 text-indigo-400 rounded-lg text-xs">${app.partner_owner}</span></td>
       <td class="p-4">$${app.setup_fee}</td>
-      <td class="p-4">$${app.monthly_rent} <span class="text-xs text-slate-500">/${getRentCycleText(app.rent_cycle)}</span></td>
+      <td class="p-4">
+  $${app.monthly_rent || 0} 
+  <span class="text-xs text-slate-500">/${getCycleText(app.rent_cycle)}</span>
+</td>
       <td class="p-4">${app.next_due_date || '-'}</td>
       <td class="p-4">
         <button onclick="togglePaymentStatus(${app.id}, '${app.rent_status}')" class="px-2.5 py-1 rounded-full text-xs font-medium cursor-pointer ${getStatusStyle(app.rent_status)}">
