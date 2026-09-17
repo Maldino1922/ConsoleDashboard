@@ -29,22 +29,33 @@ body {
 .dir-rtl {
     direction: rtl;
 }
-
 /* =========================================================
-   تعديل حجم ونسب شاشات الإضافة والتعديل (Modals) للكمبيوتر
+   تنسيق موحد وشامل لجميع النوافذ المنبثقة (Modals)
+   يصلح الحجم للكمبيوتر ويحافظ على شغال الأزرار والكلاسات
    ========================================================= */
-.modal-content, [role="dialog"], #add-modal > div, #edit-modal > div {
-    max-height: 85vh !important; /* تحديد أقصى ارتفاع بـ 85% من ارتفاع الشاشة */
-    max-width: 650px !important;  /* العرض المناسب لشاشات الكمبيوتر */
+
+/* استهداف العنصر الداخلي لكل النوافذ المنبثقة الموجودة بالمشروع */
+#add-modal > div,
+#edit-client-modal > div,
+#edit-modal > div,
+div[id$="-modal"] > div {
+    max-height: 85vh !important;       /* أقصى ارتفاع 85% من الشاشة */
+    max-width: 650px !important;        /* عرض يناسب شاشات الكمبيوتر */
     width: 90% !important;
-    overflow-y: auto !important; /* تفعيل التمرير الداخلي عند كبر المحتوى */
+    overflow-y: auto !important;       /* تفعيل التمرير الداخلي إذا كان المحتوى طويلاً */
+    margin: auto !important;           /* توسيط النافذة في منتصف الشاشة */
 }
 
-/* تحسين شكل شريط التمرير (Scrollbar) داخل النوافذ */
-.modal-content::-webkit-scrollbar, [role="dialog"]::-webkit-scrollbar, #add-modal > div::-webkit-scrollbar {
+/* تحسين وتنعيم شكل شريط التمرير (Scrollbar) الداخلي للنوافذ */
+#add-modal > div::-webkit-scrollbar,
+#edit-client-modal > div::-webkit-scrollbar,
+div[id$="-modal"] > div::-webkit-scrollbar {
     width: 6px;
 }
-.modal-content::-webkit-scrollbar-thumb, [role="dialog"]::-webkit-scrollbar-thumb, #add-modal > div::-webkit-scrollbar-thumb {
+
+#add-modal > div::-webkit-scrollbar-thumb,
+#edit-client-modal > div::-webkit-scrollbar-thumb,
+div[id$="-modal"] > div::-webkit-scrollbar-thumb {
     background-color: #374151;
     border-radius: 4px;
 }
