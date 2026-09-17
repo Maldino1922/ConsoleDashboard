@@ -317,10 +317,12 @@
         </div>
         <div>
           <label class="block text-xs text-slate-400 mb-1">دورية الإيجار</label>
-          <select id="edit-app-cycle" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-sm text-slate-100">
-            <option value="weekly">أسبوعي</option>
-            <option value="monthly">شهري</option>
-          </select>
+          <select id="edit-app-cycle" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-sm text-slate-100 focus:outline-none focus:border-indigo-500">
+  <option value="weekly">أسبوعي</option>
+  <option value="monthly">شهري</option>
+  <option value="continuous">رفع مستمر</option>
+  <option value="transfer">رفع ونقل</option>
+</select>
         </div>
         <div><label class="block text-xs text-slate-400 mb-1">تاريخ الاستحقاق</label><input type="date" id="edit-app-date" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-sm text-slate-100"></div>
       </div>
