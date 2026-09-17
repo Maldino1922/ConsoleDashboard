@@ -30,3 +30,21 @@ body {
     direction: rtl;
 }
 
+/* =========================================================
+   تعديل حجم ونسب شاشات الإضافة والتعديل (Modals) للكمبيوتر
+   ========================================================= */
+.modal-content, [role="dialog"], #add-modal > div, #edit-modal > div {
+    max-height: 85vh !important; /* تحديد أقصى ارتفاع بـ 85% من ارتفاع الشاشة */
+    max-width: 650px !important;  /* العرض المناسب لشاشات الكمبيوتر */
+    width: 90% !important;
+    overflow-y: auto !important; /* تفعيل التمرير الداخلي عند كبر المحتوى */
+}
+
+/* تحسين شكل شريط التمرير (Scrollbar) داخل النوافذ */
+.modal-content::-webkit-scrollbar, [role="dialog"]::-webkit-scrollbar, #add-modal > div::-webkit-scrollbar {
+    width: 6px;
+}
+.modal-content::-webkit-scrollbar-thumb, [role="dialog"]::-webkit-scrollbar-thumb, #add-modal > div::-webkit-scrollbar-thumb {
+    background-color: #374151;
+    border-radius: 4px;
+}
