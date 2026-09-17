@@ -85,33 +85,39 @@ async function fetchApps() {
   document.getElementById('stat-pending-rent').textContent = `$${pendingRent}`;
 }
 
+// زر السداد: تعليم السجل القديم كـ "تم الدفع" وإنشاء سجل جديد للدورة القادمة فقط إذا كانت الدورية (شهري / أسبوعي)
 async function handlePaymentClick(appId) {
   const app = rawAppsList.find(a => a.id === appId);
   if (!app) return;
 
   if (app.rent_status !== 'paid') {
+    // 1. تحديث السجل الحسابي الحالي كـ "تم الدفع"
     await supabaseClient.from('apps').update({ rent_status: 'paid' }).eq('id', appId);
 
     const currentAppStatus = app.app_status || 'active';
-    
-    if (currentAppStatus === 'active') {
+    const rentCycle = app.rent_cycle;
+
+    // 2. إنشاء سجل دورة جديدة فقط إذا كان التطبيق نشطاً وبنظام إيجار دوي (شهري أو أسبوعي)
+    // وفي حالة "رفع مستمر" أو "رفع ونقل" لن يتم إنشاء أي سجل جديد إطلاقاً
+    if (currentAppStatus === 'active' && (rentCycle === 'monthly' || rentCycle === 'weekly')) {
       const currentDueDate = new Date(app.next_due_date || new Date());
       let nextDueDate = new Date(currentDueDate);
 
-      if (app.rent_cycle === 'weekly') {
+      if (rentCycle === 'weekly') {
         nextDueDate.setDate(nextDueDate.getDate() + 7);
-      } else {
+      } else if (rentCycle === 'monthly') {
         nextDueDate.setMonth(nextDueDate.getMonth() + 1);
       }
 
       const formattedNextDate = nextDueDate.toISOString().split('T')[0];
 
+      // إنشاء السجل الجديد للدورة القادمة
       const newCycleApp = {
         app_name: app.app_name,
         console_account: app.console_account,
         client_name: app.client_name,
         partner_owner: app.partner_owner,
-        setup_fee: 0,
+        setup_fee: 0, // رسوم الرفع تدفع مرة واحدة فقط
         monthly_rent: app.monthly_rent,
         rent_cycle: app.rent_cycle,
         next_due_date: formattedNextDate,
@@ -126,6 +132,7 @@ async function handlePaymentClick(appId) {
     }
 
   } else {
+    // إرجاع الحالة إلى معلق في حال الضغط بالخطأ على "تم الدفع"
     await supabaseClient.from('apps').update({ rent_status: 'pending' }).eq('id', appId);
   }
 
@@ -736,3 +743,26 @@ window.addEventListener('DOMContentLoaded', () => {
   const activeTab = localStorage.getItem('activeTab') || 'apps-tab';
   switchTab(activeTab);
 });
+
+// دالة إخفاء وإظهار حقل الإيجار الدوري وتعديل المتطلبات حسب دورية الإيجار
+function toggleRentFields() {
+  const rentCycle = document.getElementById('rent_cycle').value;
+  const rentContainer = document.getElementById('rent_amount_container');
+  const rentInput = document.getElementById('monthly_rent');
+  const dueDateInput = document.getElementById('next_due_date');
+
+  // في حالة اختيار رفع مستمر أو رفع ونقل
+  if (rentCycle === 'continuous' || rentCycle === 'transfer') {
+    if (rentContainer) rentContainer.classList.add('hidden');
+    if (rentInput) rentInput.value = 0; // تصغير قيمة الإيجار إلى 0
+    if (dueDateInput) {
+      dueDateInput.removeAttribute('required'); // جعل التاريخ غير إجباري
+    }
+  } else {
+    // في حالة الاختيارات العادية (شهري / أسبوعي)
+    if (rentContainer) rentContainer.classList.remove('hidden');
+    if (dueDateInput) {
+      dueDateInput.setAttribute('required', 'required'); // إعادة التاريخ ليكون إجبارياً
+    }
+  }
+}

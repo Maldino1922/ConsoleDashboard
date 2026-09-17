@@ -269,16 +269,18 @@
 
           <div>
             <label class="block text-xs text-slate-400 mb-1">دورية الإيجار</label>
-            <select id="rent_cycle" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-sm text-slate-100 focus:outline-none focus:border-indigo-500">
-              <option value="weekly" selected>أسبوعي</option>
-              <option value="monthly">شهري</option>
-            </select>
+            <select id="rent_cycle" onchange="toggleRentFields()" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-sm text-slate-100 focus:outline-none focus:border-indigo-500">
+			<option value="monthly">شهري</option>
+			<option value="weekly">أسبوعي</option>
+			<option value="continuous">رفع مستمر</option>
+			<option value="transfer">رفع ونقل</option>
+			</select>
           </div>
         </div>
 
         <div class="grid grid-cols-2 gap-3">
           <div><label class="block text-xs text-slate-400 mb-1">رسوم الرفع ($)</label><input type="number" id="setup_fee" value="0" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-sm text-slate-100 focus:outline-none focus:border-indigo-500"></div>
-          <div><label class="block text-xs text-slate-400 mb-1">الإيجار الدوري ($)</label><input type="number" id="monthly_rent" value="0" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-sm text-slate-100 focus:outline-none focus:border-indigo-500"></div>
+          <div id="rent_amount_container"><label class="block text-xs text-slate-400 mb-1">الإيجار الدوري ($)</label><input type="number" id="monthly_rent" value="0" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-sm text-slate-100 focus:outline-none focus:border-indigo-500"></div>
         </div>
 
         <div><label class="block text-xs text-slate-400 mb-1">تاريخ الاستحقاق القادم</label><input type="date" id="next_due_date" required class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-sm text-slate-100 focus:outline-none focus:border-indigo-500"></div>
